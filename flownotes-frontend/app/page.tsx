@@ -1,5 +1,7 @@
-import { Title } from "@mantine/core";
+import HomePage from "./components/HomePage";
 
 export default function Home() {
-  return <Title>Welcome to Flownotes</Title>;
+  return (
+    <HomePage />
+  );
 }

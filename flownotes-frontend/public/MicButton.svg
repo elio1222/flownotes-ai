@@ -1,0 +1,40 @@
+<svg width="206" height="206" viewBox="0 0 206 206" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle cx="103" cy="103" r="102" fill="url(#paint0_linear_8_53)" stroke="black" stroke-width="2"/>
+<g filter="url(#filter0_d_8_53)">
+<path d="M130.417 95.4167V102.5C130.417 109.075 127.528 115.381 122.386 120.03C117.245 124.68 110.271 127.292 103 127.292M103 127.292C95.7286 127.292 88.7551 124.68 83.6135 120.03C78.4718 115.381 75.5833 109.075 75.5833 102.5V95.4167M103 127.292V141.458M87.3333 141.458H118.667M103 63.5417C99.8837 63.5417 96.895 64.6611 94.6915 66.6536C92.4879 68.6462 91.25 71.3487 91.25 74.1667V102.5C91.25 105.318 92.4879 108.02 94.6915 110.013C96.895 112.006 99.8837 113.125 103 113.125C106.116 113.125 109.105 112.006 111.308 110.013C113.512 108.02 114.75 105.318 114.75 102.5V74.1667C114.75 71.3487 113.512 68.6462 111.308 66.6536C109.105 64.6611 106.116 63.5417 103 63.5417Z" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<line x1="103" y1="112" x2="103" y2="107" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="107" y1="111" x2="107" y2="106" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="99" y1="111" x2="99" y2="106" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="93" y1="85" x2="100" y2="85" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="107" y1="71" x2="107" y2="66" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="103" y1="70" x2="103" y2="65" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="99" y1="71" x2="99" y2="66" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="93" y1="89" x2="100" y2="89" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="106" y1="77" x2="113" y2="77" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="93" y1="81" x2="100" y2="81" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="93" y1="77" x2="100" y2="77" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="106" y1="89" x2="113" y2="89" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="106" y1="93" x2="113" y2="93" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="93" y1="97" x2="100" y2="97" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="106" y1="97" x2="113" y2="97" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="93" y1="93" x2="100" y2="93" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="106" y1="85" x2="113" y2="85" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<line x1="106" y1="81" x2="113" y2="81" stroke="white" stroke-width="2" stroke-linecap="round"/>
+<defs>
+<filter id="filter0_d_8_53" x="55" y="60" width="96" height="88" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="2"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_8_53"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_8_53" result="shape"/>
+</filter>
+<linearGradient id="paint0_linear_8_53" x1="204" y1="103" x2="2" y2="103" gradientUnits="userSpaceOnUse">
+<stop offset="0.0101415" stop-color="#0B8793"/>
+<stop offset="1" stop-color="#360033"/>
+</linearGradient>
+</defs>
+</svg>

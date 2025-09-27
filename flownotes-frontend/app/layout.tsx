@@ -1,16 +1,26 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Providers from "./providers";
+import "@mantine/core/styles.css";
 import {
   AppShell,
-  AppShellHeader,
   AppShellMain,
   BackgroundImage,
-  Center,
   Group,
+  AppShellHeader,
+  MantineProvider,
+  createTheme,
 } from "@mantine/core";
 import SignInButton from "./components/SignInButton";
 import HomeButton from "./components/HomeButton";
+import { Moon } from "lucide-react";
+
+const theme = createTheme({
+  fontFamily: "Inter, sans-serif",
+  headings: {
+    fontFamily: "Inter, sans-serif",
+    fontWeight: "700",
+  },
+});
 
 export const metadata: Metadata = {
   title: "flownotes",
@@ -25,41 +35,33 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>
+        <MantineProvider theme={theme}>
           <BackgroundImage src="">
-            <Center
-              style={{
-                backgroundSize: 800,
-                backgroundRepeat: "repeat",
-                backgroundAttachment: "fixed",
-                // backgroundImage:
-                //   "",
-              }}
+            <AppShell
+              header={{ height: 120 }}
+              style={{ opacity: "unset", width: "100%" }}
+              padding={"md"}
             >
-              <AppShell
-                style={{ opacity: "unset" }}
-                header={{ height: 70 }}
-                padding={"xs"}
-                w={"75%"}
+              <AppShellHeader
+                style={{ padding: "2rem", backgroundColor: "#f5f5f5" }}
               >
-                <AppShellHeader>
-                  <Group
-                    justify={"space-evenly"}
-                    h={"100%"}
-                    w={"100%"}
-                    pr={"sm"}
-                    miw={"345px"}
-                  >
-                    {/*Add components here, one for home button and one for sign in */}
-                    <HomeButton />
-                    <SignInButton />
-                  </Group>
-                </AppShellHeader>
-                <AppShellMain>{children}</AppShellMain>
-              </AppShell>
-            </Center>
+                <Group justify="space-between" align="center">
+                  <HomeButton />
+                  <SignInButton />
+                </Group>
+              </AppShellHeader>
+              <AppShellMain
+                p="xl"
+                style={{
+                  overflow: "visible",
+                  background: "linear-gradient(135deg, #360033 0%, #0b8793 100%)",
+                }}
+              >
+                {children}
+              </AppShellMain>
+            </AppShell>
           </BackgroundImage>
-        </Providers>
+        </MantineProvider>
       </body>
     </html>
   );

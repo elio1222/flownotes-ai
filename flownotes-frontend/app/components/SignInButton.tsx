@@ -2,7 +2,7 @@ import { Avatar, Text } from "@mantine/core";
 
 const SignInButton = () => {
   return (
-    <Avatar component="button">
+    <Avatar size={"4rem"}>
       <Text>Sign in</Text>
     </Avatar>
   );

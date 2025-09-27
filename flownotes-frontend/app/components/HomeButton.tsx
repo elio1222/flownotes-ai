@@ -1,12 +1,10 @@
-import { Button, Image } from "@mantine/core";
-import { House } from 'lucide-react';
+import { Anchor, Image } from "@mantine/core";
 
 const HomeButton = () => {
   return (
-    <Button>
-        <House />
-        {/* <Image src={"./cool-bg.svg"} alt="Flownotes AI Logo" /> */}
-    </Button>
+    <Anchor className="hovered-component">
+      <Image src={'/FlowNotesAILogo.svg'} alt="Flownotes AI Logo" w={300} />
+    </Anchor>
   );
 };
 export default HomeButton;
