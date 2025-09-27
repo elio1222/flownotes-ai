@@ -51,13 +51,20 @@ body {
   overflow: hidden;
   border-right: 0.15em solid white;
   white-space: nowrap;
-  animation: typing 3s steps(21, end) forwards, blink-caret 1.5s step-end infinite;
+  animation: typing 3s steps(21, end) forwards,
+    blink-caret 1.5s step-end infinite;
 }
 
 @keyframes typing {
-  0% { width: 0 }
-  9% { width: 21ch }
-  100% { width: 21ch }
+  0% {
+    width: 0;
+  }
+  9% {
+    width: 21ch;
+  }
+  100% {
+    width: 21ch;
+  }
 }
 
 @keyframes blink-caret {
