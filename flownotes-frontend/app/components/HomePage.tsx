@@ -5,6 +5,7 @@ import { useState } from "react";
 import dynamic from "next/dynamic";
 import StartRecordingButton from "./StartRecordingButton";
 import StopRecordingButton from "./StopRecordingButton";
+import SubmitAudioButton from "./SubmitAudioButton";
 
 const ReactMediaRecorder = dynamic(
   () => import("react-media-recorder").then((mod) => mod.ReactMediaRecorder),
@@ -37,13 +38,16 @@ const HomePage = () => {
                 />
               )}
               {mediaBlobUrl && (
-                <div style={{ marginTop: "20px" }}>
+                <Stack>
+                  <div style={{ marginTop: "20px" }}>
                   <audio
                     src={mediaBlobUrl}
                     controls
                     style={{ width: "100%" }}
                   />
                 </div>
+                <SubmitAudioButton audioData={mediaBlobUrl}/>
+                </Stack>
               )}
             </div>
           )}
