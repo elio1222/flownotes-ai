@@ -166,7 +166,7 @@ def createNote(request):
             summary_data = summary_response.json()
             print(summary_data)
 
-            note = Note(user=User.objects.all()[0], title = "Untitled", text = transcript_result['text'] )
+            note = Note(user=User.objects.all()[0], title = "Untitled", text = transcript_result['text'], summary = summary_data['response'] )
             note.save()
 
             return Response({'status': 'good', 'message': 'note created', 'assemblyai_response': transcript_result['text'], 'summary': summary_data['response']})

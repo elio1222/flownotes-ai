@@ -6,3 +6,4 @@ class Note(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE) # if the user is deleted all their notes get deleted as well
     title = models.CharField(max_length=20)
     text = models.TextField()
+    summary = models.TextField()

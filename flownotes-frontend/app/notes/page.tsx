@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Card, Text, Stack, Button, Anchor } from "@mantine/core";
+import Link from "next/link";
 
 export default function NotesPage() {
   const [notes, setNotes] = useState<any>([]);
@@ -66,6 +67,39 @@ export default function NotesPage() {
               Read All Notes
             </Button>
           </Anchor>
+            <Link href="/summarize">
+            <button
+              style={{
+                position: "absolute",
+                bottom: "0px",
+                left: "3px",
+                backgroundColor: "#73006b",
+                color: "#fff",
+                border: "none",
+                borderRadius: "8px",
+                cursor: "pointer",
+                boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                transition: "all 0.2s ease-in-out",
+              }}
+              onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#a6008c")}
+              onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#73006b")}
+            >
+              Summarize
+            </button>
+          </Link>
+        </div>
+        <div
+          style={{
+            marginTop: "10px",
+            padding: "20px",
+            borderRadius: "8px",
+            backgroundColor: "#fff",
+            border: "1px solid #ddd",
+            minHeight: "150px",
+            position: "relative"
+          }}
+        >
+          {notes ? notes.summary : "Loading..."}
         </div>
       </Card>
     </Stack>
