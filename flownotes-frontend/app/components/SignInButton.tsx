@@ -1,10 +1,12 @@
-import { Avatar, Text } from "@mantine/core";
+import { Avatar, Text, Anchor } from "@mantine/core";
 
 const SignInButton = () => {
   return (
-    <Avatar size={"4rem"}>
-      <Text>Sign in</Text>
-    </Avatar>
+    <Anchor href="/login">
+      <Avatar size={"4rem"}>
+        <Text>Sign in</Text>
+      </Avatar>
+    </Anchor>
   );
 };
 export default SignInButton;

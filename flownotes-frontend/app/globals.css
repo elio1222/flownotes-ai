@@ -38,6 +38,7 @@ body {
   }
 }
 
+/*for adding hover to buttons*/
 .hovered-component {
   transition: transform 0.3s ease-in-out;
 }
@@ -46,6 +47,40 @@ body {
   transform: scale(1.03);
 }
 
+/*for adding pulse to recording button*/
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    border-width: 2px;
+  }
+  50% {
+    transform: scale(0.98);
+    box-shadow: 0 0 0 4px rgba(255, 0, 0, 0.4);
+    border-width: 3px;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(255, 0, 0, 0);
+    border-width: 2px;
+  }
+}
+
+.recording-pulse {
+  position: relative;
+  animation: pulse 1.5s infinite ease-in-out;
+  border: 2px solid #ff3333 !important;
+  background: white !important;
+  transform-origin: center;
+  will-change: transform, box-shadow, border-width;
+}
+
+.recording-pulse:hover {
+  background: white !important;
+  transform: scale(1.03);
+}
+
+/*for adding type animation to chars*/
 .typed-out {
   display: inline-block;
   overflow: hidden;

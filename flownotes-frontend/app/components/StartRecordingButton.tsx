@@ -37,12 +37,17 @@ const StartRecordingButton = ({ onClick }: StartRecordingButtonProps) => {
           styles={{
             root: {
               background: "white",
-              boxShadow: "0 12px 36px rgba(255, 255, 255, 0.28), 0 6px 18px rgba(255, 255, 255, 0.18)",
-              border: "1px solid rgba(255,255,255,0.4)",
+              boxShadow: "0 0 20px 10px rgba(255, 255, 255, 0.3), 0 0 40px 20px rgba(255, 255, 255, 0.2), 0 0 60px 30px rgba(255, 255, 255, 0.1)",
+              border: "1px solid rgba(255, 255, 255, 0.6)",
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               padding: 0,
+              transition: 'box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out',
+              '&:hover': {
+                boxShadow: "0 0 25px 12px rgba(255, 255, 255, 0.4), 0 0 50px 25px rgba(255, 255, 255, 0.25), 0 0 75px 40px rgba(255, 255, 255, 0.15)",
+                transform: 'scale(1.03)'
+              }
             }
           }}
         >

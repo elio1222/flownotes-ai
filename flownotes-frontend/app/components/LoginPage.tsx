@@ -30,7 +30,7 @@ const LoginPage = () => {
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
-      paddingTop: "300px",
+      paddingTop: "25vh",
     }}>
       <Paper
         radius="md"

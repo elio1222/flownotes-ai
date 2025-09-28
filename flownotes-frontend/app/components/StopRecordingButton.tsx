@@ -8,11 +8,11 @@ const StopRecordingButton = ({ onClick }: StopRecordingButtonProps) => {
   return (
     <Stack align="center" gap="8vh" w="100%">
       <Text className="typed-out" c="white" size="xl" fw={700} ta="center">
-        Recording and summarizing...
+        Collecting ingeneous ideas...
       </Text>
       <Box w="min(80vw, 400px)" h="min(80vw, 400px)" maw="100%" mx="auto">
         <Button
-          className="hovered-component"
+          className="hovered-component recording-pulse"
           variant="white"
           p={0}
           w="100%"
@@ -22,9 +22,6 @@ const StopRecordingButton = ({ onClick }: StopRecordingButtonProps) => {
           onClick={onClick}
           styles={{
             root: {
-              background: "white",
-              boxShadow: "0 12px 36px rgba(255, 255, 255, 0.28), 0 6px 18px rgba(255, 255, 255, 0.18)",
-              border: "1px solid rgba(255, 255, 255, 0.4)",
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
