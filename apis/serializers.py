@@ -26,7 +26,7 @@ class CreateUserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-class NoteSerializer(serializers.Serializer):
+class NoteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Note
         fields = "__all__"

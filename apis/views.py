@@ -12,7 +12,16 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 import tempfile
 import requests
+import os
+import time
 
+# base url for api url
+base_url = "https://api.assemblyai.com"
+
+# headers for api call authorization. putting api key in here
+headers = {
+    "authorization": f"{os.getenv("API_KEY")}"
+}
 
 # Create your views here.
 @login_required
@@ -63,41 +72,102 @@ def logoutUser(request):
     logout(request)
     return Response({'status': 'good', 'message': 'user logged out'})
 
-# create note
-@csrf_exempt
-# @login_required
-@api_view(["POST"])
-def createNote(request):
+# # create note
+# @csrf_exempt
+# # @login_required
+# @api_view(["POST"])
+# def createNote(request):
     
-    audio_file = request.FILES.get('audio_file')
-    print(f'AUDIO FILEEEE: {audio_file}')
-    title = request.data.get('title')
-    local_path = "/Users/eliorocha/Development/WindowsDevelopment/flownotes/apis/audios"
+#     audio_file = request.FILES.get('audio_file')
+#     print(f'AUDIO FILEEEE: {audio_file}')
+#     title = request.data.get('title')
+#     local_path = "/Users/eliorocha/Development/WindowsDevelopment/flownotes/apis/audios"
+#     try:
+#         # Make sure directory exists
+#         local_dir = "/Users/eliorocha/Development/WindowsDevelopment/flownotes/apis/audios"
+#         os.makedirs(local_dir, exist_ok=True)
+
+#         # Build full path
+#         file_path = os.path.join(local_dir, f"{title}.mp3")  # or .webm if raw
+
+#         # Save uploaded file to disk
+#         with open(file_path, 'wb') as f:
+#             for chunk in audio_file.chunks():
+#                 f.write(chunk)
+
+#         print(f"Audio file saved successfully to {file_path}")
+
+#     except requests.exceptions.RequestException as e:
+#         print(f"Error downloading audio file: {e}")
+
+#     # tmp_path = convert_to_mp3(audio_file)
+#     text = assembly_ai_text(audio_file)
+#     user = User.objects.all()[0]
+#     new_note = NoteSerializer(data = {'user': user, 'title': title, 'text': text}) 
+#     if new_note.is_valid():
+#         new_note.save()
+#     else:
+#         return Response({'status': 'bad', 'message': 'failed to create note'})
+
+#     return Response({'status': 'good', 'message': 'created note'})
+@csrf_exempt
+@api_view(['POST'])
+def createNote(request):
+    audio_file = request.FILES.get("audio_file")  # InMemoryUploadedFile
+    title = request.data.get("title")
+
+    if not audio_file or not title:
+        return Response({"status": "bad", "message": "Missing audio file or title"})
+
+    # --- Step 1: Upload audio to AssemblyAI ---
     try:
-        # response = requests.get(audio_file, stream=True)
-        # response.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
-        response = audio_file
-
-        with open(local_path, 'wb') as f:
-            for chunk in response.iter_content(chunk_size=8192):
-                f.write(chunk)
-        print(f"Audio file downloaded successfully to {local_path}")
-
+        upload_res = requests.post(
+            f"{base_url}/v2/upload",
+            headers={"authorization": os.getenv("API_KEY")},
+            data=audio_file.file  # stream raw binary
+        )
+        upload_res.raise_for_status()
     except requests.exceptions.RequestException as e:
-        print(f"Error downloading audio file: {e}")
+        return Response({"status": "bad", "message": f"Upload failed: {e}"})
 
-    # tmp_path = convert_to_mp3(audio_file)
-    text = assembly_ai_text(audio_file)
-    user = User.objects.all()[0]
-    new_note = NoteSerializer(data = {'user': user, 'title': title, 'text': text}) 
-    if new_note.is_valid():
-        new_note.save()
-    else:
-        return Response({'status': 'bad', 'message': 'failed to create note'})
+    audio_url = upload_res.json().get("upload_url")
+    if not audio_url:
+        return Response({"status": "bad", "message": "No upload URL returned"})
 
-    return Response({'status': 'good', 'message': 'created note'})
+    # --- Step 2: Request transcription ---
+    transcript_req = {"audio_url": audio_url, "speaker_labels": False}
+    try:
+        transcript_res = requests.post(
+            f"{base_url}/v2/transcript",
+            headers={"authorization": os.getenv("API_KEY"), "content-type": "application/json"},
+            json=transcript_req
+        )
+        transcript_res.raise_for_status()
+    except requests.exceptions.RequestException as e:
+        return Response({"status": "bad", "message": f"Transcription failed: {e}"})
+
+    transcript_data = transcript_res.json()
+    transcript_id = transcript_data.get('id')
+
+    endpoint = base_url + '/v2/transcript/' + transcript_id
+    while True:
+        transcript_result = requests.get(endpoint, headers=headers).json()
+        if transcript_result['status'] == 'completed':
+            print(f'Assembly AI Response: {transcript_result['text']}')
+            note = Note(user=User.objects.all()[0], title = "Untitled", text = transcript_result['text'] )
+            note.save()
+
+            return Response({'status': 'good', 'message': 'note created', 'assemblyai_response': transcript_result['text']})
+            break
+        elif transcript_result['status'] == 'error':
+            raise RuntimeError(f"Transcription failed: {transcript_result['error']}")
+
+        else:
+            time.sleep(3)
+
+
 # read note(s)
-@login_required
+@api_view(['GET'])
 def readNote(request):
     
     # if the user has a specific note in mind they want to read, they can search it and get that note. 
@@ -107,13 +177,32 @@ def readNote(request):
         return Response(serial_note)
     
     # else display all notes 
-    notes = Note.objects.filter(user = request.user)
-    serial_notes = NoteSerializer(notes, many = True)
+    notes = Note.objects.filter(user = User.objects.all()[0])
+    print(f'NOTE: {notes}')
+    notess = Note.objects.all()
+    print(f'NOTES:::::: {notess}')
+    last_note = Note.objects.last()
+    serial_notes = NoteSerializer(last_note)
+    print(f'SERIAL NOTESSS: ::::: {serial_notes.data}')
+
     return Response(serial_notes.data)
 
+@api_view(['GET'])
+def readALLNote(request):
+    
+    # if the user has a specific note in mind they want to read, they can search it and get that note. 
+    if request.data.get('title'):
+        note = Note.objects.get(user=request.user, title= request.data.get('title'))
+        serial_note = NoteSerializer(note)
+        return Response(serial_note)
+    
+    # else display all notes 
+    notess = Note.objects.all()
+    serial_notes = NoteSerializer(notess, many = True)
+
+    return Response(serial_notes.data)
 
 # update note
-@login_required
 def updateNote(request):
     
     # gets a title from the frontend
@@ -126,7 +215,6 @@ def updateNote(request):
     return Response({'status': 'good', 'message': 'success'})
 
 # delete note
-@login_required
 def deleteNote(request):
     if not request.user.is_authenticated:
         return Response({'status': 'bad', 'message': 'user not logged in'})

@@ -1,11 +1,14 @@
+"use client";
 import { Button } from "@mantine/core";
 import SubmitAudio from "../utils";
+import { useRouter } from 'next/navigation';
 
 interface SubmitAudioButtonProps {
   audioData: string | null;
 }
 
 const SubmitAudioButton = ({ audioData }: SubmitAudioButtonProps) => {
+  const router = useRouter();
   const handleSubmit = async () => {
     if (!audioData) {
       console.error("No audio data to submit");
@@ -13,6 +16,7 @@ const SubmitAudioButton = ({ audioData }: SubmitAudioButtonProps) => {
     }
     try {
       await SubmitAudio(audioData);
+      router.push("/notes")
     } catch (error) {
       console.error("Error submitting audio:", error);
     }
