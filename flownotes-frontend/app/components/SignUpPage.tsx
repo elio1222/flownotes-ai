@@ -24,6 +24,14 @@ const LoginPage = () => {
 
   return (
     <>
+    <div
+    style = {{
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      paddingTop: "300px",
+    }}>
       <Paper
         radius="md"
         shadow="xl"
@@ -34,10 +42,12 @@ const LoginPage = () => {
           boxShadow:
             "0 12px 36px rgba(255, 255, 255, 0.28), 0 6px 18px rgba(255, 255, 255, 0.18)",
           border: "1px solid rgba(255,255,255,0.4)",
+          maxWidth: "500px",
+          justifyContent: "center"
         }}
       >
         <Stack gap="xl" align="center">
-          <Title order={1}>Log In</Title>
+          <Title order={1}>Sign Up</Title>
 
           <form
             onSubmit={(event) => {
@@ -119,16 +129,17 @@ const LoginPage = () => {
               />
               <Group justify="center" mt="lg">
                 <Button type="submit" color="#309553">
-                  Log In
+                  Sign Up
                 </Button>
               </Group>
             </Stack>
           </form>
         </Stack>
       </Paper>
-      <p style={{ marginTop: "20px", color: "white"}}>
-        Don&apos;t have an account? <Anchor href="/signup">Sign Up</Anchor>
+        <p style={{ marginTop: "20px", color: "white"}}>
+        Already have an account? <Anchor href="/signup">Log In</Anchor>
       </p>
+      </div>
     </>
   );
 };
