@@ -1,35 +1,56 @@
-import { Button, Text, Center, Stack, Image } from "@mantine/core";
+"use client";
+
+import { Center, Stack, Text } from "@mantine/core";
+import { useState } from "react";
+import dynamic from "next/dynamic";
+import StartRecordingButton from "./StartRecordingButton";
+import StopRecordingButton from "./StopRecordingButton";
+
+const ReactMediaRecorder = dynamic(
+  () => import("react-media-recorder").then((mod) => mod.ReactMediaRecorder),
+  { ssr: false }
+);
 
 const HomePage = () => {
+  const [isRecording, setIsRecording] = useState(false);
+
   return (
     <Center h="calc(100vh)">
       <Stack align="center" gap="15vh" w={"30%"} h={"70%"}>
-        <Text
-          className={"typed-out"}
-          c={"white"}
-          size="xl"
-          fw={"bolder"}
-        >
-          What&apos;s on your mind today?
-        </Text>
-        <Button
-          className="hovered-component"
-          variant="transparent"
-          fullWidth
-          h="50%"
-          c="black"
-          radius="lg"
-          style={{
-            background: "white",
-            boxShadow:
-              "0 12px 36px rgba(255, 255, 255, 0.28), 0 6px 18px rgba(255, 255, 255, 0.18)",
-            border: "1px solid rgba(255,255,255,0.4)",
-          }}
-        >
-          <Image src='/MicButton.svg' alt="Record Button" style={{ width: "min(30vh, 60vw)", height: "min(30vh, 60vw)" }}/>
-        </Button>
+        <ReactMediaRecorder
+          audio
+          onStart={() => setIsRecording(true)}
+          onStop={() => setIsRecording(false)}
+          render={({ startRecording, stopRecording, mediaBlobUrl }) => (
+            <div style={{ textAlign: "center", width: "100%" }}>
+              {isRecording ? (
+                <StopRecordingButton
+                  onClick={() => {
+                    stopRecording();
+                  }}
+                />
+              ) : (
+                <StartRecordingButton
+                  onClick={() => {
+                    startRecording();
+                  }}
+                />
+              )}
+              {mediaBlobUrl && (
+                <div style={{ marginTop: "20px" }}>
+                  <audio
+                    src={mediaBlobUrl}
+                    controls
+                    style={{ width: "100%" }}
+                  />
+                </div>
+              )}
+            </div>
+          )}
+        />
       </Stack>
     </Center>
   );
 };
+
 export default HomePage;

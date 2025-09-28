@@ -51,7 +51,7 @@ body {
   overflow: hidden;
   border-right: 0.15em solid white;
   white-space: nowrap;
-  animation: typing 3s steps(21, end) forwards,
+  animation: typing 15s steps(21, end) forwards,
     blink-caret 1.5s step-end infinite;
 }
 
@@ -60,10 +60,10 @@ body {
     width: 0;
   }
   9% {
-    width: 21ch;
+    width: 22ch;
   }
   100% {
-    width: 21ch;
+    width: 22ch;
   }
 }
 

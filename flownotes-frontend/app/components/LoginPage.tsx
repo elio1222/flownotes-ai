@@ -43,6 +43,7 @@ const LoginPage = () => {
             onSubmit={(event) => {
               event.preventDefault();
               form.onSubmit((values) => {
+                console.log(values)
                 // authenticate user here and navigate on success
                 // Example: console.log(values);
                 // window.location.href = '/';

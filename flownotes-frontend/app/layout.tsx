@@ -12,7 +12,6 @@ import {
 } from "@mantine/core";
 import SignInButton from "./components/SignInButton";
 import HomeButton from "./components/HomeButton";
-import { Moon } from "lucide-react";
 
 const theme = createTheme({
   fontFamily: "Inter, sans-serif",
@@ -36,7 +35,6 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <MantineProvider theme={theme}>
-          <BackgroundImage src="">
             <AppShell
               header={{ height: 120 }}
               style={{ opacity: "unset", width: "100%" }}
@@ -60,7 +58,6 @@ export default function RootLayout({
                 {children}
               </AppShellMain>
             </AppShell>
-          </BackgroundImage>
         </MantineProvider>
       </body>
     </html>
