@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from django.contrib.auth.decorators import login_required
 from apis.models import Note
 from apis.serializers import NoteSerializer
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Create your views here.
@@ -22,12 +23,17 @@ def get_audio(request):
     text = assembly_ai_text(mp3_file_path)
     return HttpResponse(text)
 
+@csrf_exempt
 @api_view(['POST'])
 def createUser(request):
+    print(request.data)
     serial = CreateUserSerializer(data = request.data)
     if serial.is_valid():
         serial.save()
-        return 'redirect to login page'
+    else:
+        return HttpResponse('error')
+    
+    return Response({'status': 'good', 'message': 'user created'})
     
 @api_view(['POST'])
 def authenticateUser(request):

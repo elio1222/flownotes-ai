@@ -4,7 +4,7 @@ from apis.models import Note
 
 # serializers act as a translator between complex python objects and data formats that can be sent over the web
 
-class CreateUserSerializer(serializers.Serializer):
+class CreateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ["username", "email", "password"]

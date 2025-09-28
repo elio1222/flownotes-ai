@@ -42,10 +42,30 @@ const LoginPage = () => {
           <form
             onSubmit={(event) => {
               event.preventDefault();
-              form.onSubmit((values) => {
+              form.onSubmit(async(values) => {
                 // authenticate user here and navigate on success
                 // Example: console.log(values);
                 // window.location.href = '/';
+                try {
+                  const res = await fetch("http://127.0.0.1:8000/create/user/", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(values),
+                    credentials: "include",
+                  }
+                );
+
+                  if (res.ok) {
+                    window.location.href = "/";
+                  } else {
+                    const data = await res.json();
+                    console.error('login failed', data);
+                  }
+                } catch (err) {
+                  console.error('error loggin in', err)
+                }
               })(event);
             }}
           >
