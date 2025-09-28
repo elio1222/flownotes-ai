@@ -4,7 +4,6 @@ import "@mantine/core/styles.css";
 import {
   AppShell,
   AppShellMain,
-  BackgroundImage,
   Group,
   AppShellHeader,
   MantineProvider,

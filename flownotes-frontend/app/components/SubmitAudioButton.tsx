@@ -19,7 +19,7 @@ const SubmitAudioButton = ({ audioData }: SubmitAudioButtonProps) => {
   };
 
   return (
-    <Button variant="transparent" onClick={handleSubmit} disabled={!audioData}>
+    <Button c="#73006b" variant="transparent" onClick={handleSubmit} disabled={!audioData}>
       Submit Audio
     </Button>
   );
