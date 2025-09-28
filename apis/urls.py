@@ -8,5 +8,5 @@ urlpatterns = [
     path('read/note', views.readNote),
     path('update/note', views.updateNote),
     path('delete/note', views.deleteNote),
-    path('read/notes', views.readALLNote)
+    path('read/notes', views.readALLNote),
 ]

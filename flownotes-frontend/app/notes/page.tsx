@@ -2,13 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { Card, Text, Stack, Button, Anchor } from "@mantine/core";
-import Link from 'next/link';
-
-interface Note {
-  id: string;
-  title: string;
-  text: string;
-}
 
 export default function NotesPage() {
   const [notes, setNotes] = useState<any>([]);
@@ -17,7 +10,7 @@ export default function NotesPage() {
   useEffect(() => {
     const fetchNotes = async () => {
       try {
-        const res = await fetch("http://127.0.0.1:8000/read/note"); // adjust to your backend
+        const res = await fetch("http://127.0.0.1:8000/read/note"); 
         if (!res.ok) throw new Error("Failed to fetch notes");
         const data = await res.json();
         setNotes(data);
@@ -57,9 +50,8 @@ export default function NotesPage() {
             <Button
               style={{
                 position: "absolute",
-                bottom: "10px",
-                right: "10px",
-                padding: "10px 20px",
+                bottom: "0px",
+                right: "3px",
                 backgroundColor: "#73006b",
                 color: "#fff",
                 border: "none",
