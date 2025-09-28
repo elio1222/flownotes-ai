@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Card, Text, Stack } from "@mantine/core";
 
 export default function NotesPage() {
-  const [notes, setNotes] = useState<any[]>([]);
+  const [notes, setNotes] = useState<any[]>([]);//this is not good practice but we are speeding through
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -23,16 +23,17 @@ export default function NotesPage() {
   }, []);
 
   return (
-    <Stack align="center" mt="xl" style={{ paddingTop: "300px" }}>
-      {notes.map((note) => (
+    <div id="display-notes-page-display">
+      <Stack align="center" gap="md" style={{ padding: '100px 0' }}>
+        {notes.map((note) => (
         <Card
-          key={note.id} // ✅ unique key
+          key={note.id} 
           shadow="sm"
           radius="md"
           withBorder
           style={{ width: "60%", backgroundColor: "#f9f9f9", marginBottom: "20px" }}
         >
-          <Text size="xl" fw={700} c="dark">
+          <Text size="xl" fw={700} c="dark" className="typed-out">
             {note.title}
           </Text>
           <div
@@ -48,7 +49,8 @@ export default function NotesPage() {
             {note.text}
           </div>
         </Card>
-      ))}
-    </Stack>
+        ))}
+      </Stack>
+    </div>
   );
 }

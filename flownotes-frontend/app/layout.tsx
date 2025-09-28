@@ -50,7 +50,8 @@ export default function RootLayout({
               <AppShellMain
                 p="xl"
                 style={{
-                  overflow: "visible",
+                  overflow: 'auto',
+                  height: 'calc(100vh - 120px)', // Subtract header height
                   background: "linear-gradient(135deg, #360033 0%, #0b8793 100%)",
                 }}
               >

@@ -29,7 +29,11 @@ html,
 body {
   background: var(--app-background) !important;
   color: var(--app-foreground) !important;
-  overflow: hidden;
+}
+
+.no-scroll {
+  overflow: none;
+  height: 100vh;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -127,21 +131,18 @@ body {
 .typed-out {
   display: inline-block;
   overflow: hidden;
-  border-right: 0.15em solid white;
   white-space: nowrap;
-  animation: typing 15s steps(21, end) forwards,
-    blink-caret 1.5s step-end infinite;
+  border-right: none;
+  width: 0;
+  animation: typing 4s steps(40, end) forwards;
 }
 
 @keyframes typing {
-  0% {
+  from { 
     width: 0;
   }
-  9% {
-    width: 22ch;
-  }
-  100% {
-    width: 22ch;
+  to { 
+    width: 100%;
   }
 }
 

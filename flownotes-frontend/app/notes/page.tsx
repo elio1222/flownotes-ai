@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Card, Text, Stack, Loader } from "@mantine/core";
-import { useRouter } from 'next/navigation';
+import { Card, Text, Stack, Button, Anchor } from "@mantine/core";
 import Link from 'next/link';
 
 interface Note {
@@ -39,7 +38,7 @@ export default function NotesPage() {
         withBorder
         style={{ width: "60%", backgroundColor: "#f9f9f9" }}
       >
-        <Text size="xl" fw={700} c="dark">
+        <Text size="xl" fw={700} c="dark" className="typed-out">
           Untitled
         </Text>
         <div
@@ -54,9 +53,9 @@ export default function NotesPage() {
           }}
         >
           {notes ? notes.text : "Loading..."}
-          <Link href = "/displaynotes">
-        <button
-            style={{
+          <Anchor href="/displaynotes">
+            <Button
+              style={{
                 position: "absolute",
                 bottom: "10px",
                 right: "10px",
@@ -68,13 +67,13 @@ export default function NotesPage() {
                 cursor: "pointer",
                 boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
                 transition: "all 0.2s ease-in-out",
-            }}
-            onMouseOver={e => (e.currentTarget.style.backgroundColor = "#a6008c")}
-            onMouseOut={e => (e.currentTarget.style.backgroundColor = "#73006b")}
+              }}
+              onMouseOver={e => (e.currentTarget.style.backgroundColor = "#a6008c")}
+              onMouseOut={e => (e.currentTarget.style.backgroundColor = "#73006b")}
             >
-            Read All Notes
-            </button>
-            </Link>
+              Read All Notes
+            </Button>
+          </Anchor>
         </div>
       </Card>
     </Stack>
