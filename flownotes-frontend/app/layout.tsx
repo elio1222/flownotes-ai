@@ -21,8 +21,8 @@ const theme = createTheme({
 });
 
 export const metadata: Metadata = {
-  title: "flownotes",
-  description: "FlownotesAI",
+  title: "flowgo",
+  description: "flowgoAI",
 };
 
 export default function RootLayout({

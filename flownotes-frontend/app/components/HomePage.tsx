@@ -1,6 +1,6 @@
 "use client";
 
-import { Center, Stack, Text } from "@mantine/core";
+import { Center, Stack } from "@mantine/core";
 import { useState } from "react";
 import dynamic from "next/dynamic";
 import StartRecordingButton from "./StartRecordingButton";
