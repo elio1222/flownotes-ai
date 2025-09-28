@@ -50,8 +50,8 @@ export default function NotesPage() {
             <Button
               style={{
                 position: "absolute",
-                bottom: "0px",
-                right: "3px",
+                bottom: "5px",
+                right: "5px",
                 backgroundColor: "#73006b",
                 color: "#fff",
                 border: "none",
