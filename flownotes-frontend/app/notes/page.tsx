@@ -58,9 +58,8 @@ export default function NotesPage() {
         <button
             style={{
                 position: "absolute",
-                bottom: "10px",
-                right: "10px",
-                padding: "10px 20px",
+                bottom: "0px",
+                right: "3px",
                 backgroundColor: "#73006b",
                 color: "#fff",
                 border: "none",
@@ -73,6 +72,26 @@ export default function NotesPage() {
             onMouseOut={e => (e.currentTarget.style.backgroundColor = "#73006b")}
             >
             Read All Notes
+            </button>
+            </Link>
+            <Link href = "/summarize">
+        <button
+            style={{
+                position: "absolute",
+                bottom: "0px",
+                left: "3px",
+                backgroundColor: "#73006b",
+                color: "#fff",
+                border: "none",
+                borderRadius: "8px",
+                cursor: "pointer",
+                boxShadow: "0 4px 6px rgba(0,0,0,0.1)",
+                transition: "all 0.2s ease-in-out",
+            }}
+            onMouseOver={e => (e.currentTarget.style.backgroundColor = "#a6008c")}
+            onMouseOut={e => (e.currentTarget.style.backgroundColor = "#73006b")}
+            >
+            Summarize
             </button>
             </Link>
         </div>

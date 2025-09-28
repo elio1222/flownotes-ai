@@ -149,15 +149,27 @@ def createNote(request):
     transcript_data = transcript_res.json()
     transcript_id = transcript_data.get('id')
 
+
     endpoint = base_url + '/v2/transcript/' + transcript_id
     while True:
         transcript_result = requests.get(endpoint, headers=headers).json()
         if transcript_result['status'] == 'completed':
             print(f'Assembly AI Response: {transcript_result['text']}')
+            summary_response = requests.post(
+            "https://api.assemblyai.com/lemur/v3/generate/summary",
+            headers={"authorization": os.getenv("API_KEY")},
+            json={"final_model": "anthropic/claude-sonnet-4-20250514",
+            "transcript_ids": [transcript_id],
+            "max_output_size": 500}
+            )
+
+            summary_data = summary_response.json()
+            print(summary_data)
+
             note = Note(user=User.objects.all()[0], title = "Untitled", text = transcript_result['text'] )
             note.save()
 
-            return Response({'status': 'good', 'message': 'note created', 'assemblyai_response': transcript_result['text']})
+            return Response({'status': 'good', 'message': 'note created', 'assemblyai_response': transcript_result['text'], 'summary': summary_data['response']})
             break
         elif transcript_result['status'] == 'error':
             raise RuntimeError(f"Transcription failed: {transcript_result['error']}")
@@ -228,5 +240,3 @@ def deleteNote(request):
     # return good status
     return Response({'status': 'good', 'message': f'deleted {title}'})
 
-def summarizeNote(request):
-    return
