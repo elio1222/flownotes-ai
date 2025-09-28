@@ -3,9 +3,17 @@
 import { useEffect, useState } from "react";
 import { Card, Text, Stack, Button, Anchor } from "@mantine/core";
 
+interface Note {
+  id: string;
+  title: string;
+  text: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
 export default function NotesPage() {
-  const [notes, setNotes] = useState<any>([]);
-  const [loading, setLoading] = useState(true);
+  const [notes, setNotes] = useState<Note | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchNotes = async () => {
@@ -98,7 +106,7 @@ export default function NotesPage() {
             position: "relative"
           }}
         >
-          {notes ? notes.summary : "Loading..."}
+          {notes ? notes.text : "Loading..."}
         </div>
       </Card>
     </Stack>
