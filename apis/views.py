@@ -9,6 +9,9 @@ from django.contrib.auth.decorators import login_required
 from apis.models import Note
 from apis.serializers import NoteSerializer
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
+import tempfile
+import requests
 
 
 # Create your views here.
@@ -33,19 +36,27 @@ def createUser(request):
     else:
         return HttpResponse('error')
     
-    return Response({'status': 'good', 'message': 'user created'})
-    
-@api_view(['POST'])
-def authenticateUser(request):
     username = request.POST.get('username')
     password = request.POST.get('password')
-    user = authenticate(request, username=username, password=password)
-    
+    user = authenticate(request, username = username, password=password)
     if user is not None:
         login(request, user)
         return Response ({'status': 'good', 'message': 'user logged in'})
     else:
-        return Response({'status': 'bad', 'message': 'failed auth'})
+        return Response({'status': 'bad', 'message': 'failed auth'})  
+    
+# i rather just authenticate the user right away from the sign up page and then go to their notes
+# @api_view(['POST'])
+# def authenticateUser(request):
+#     username = request.POST.get('username')
+#     password = request.POST.get('password')
+#     user = authenticate(request, username=username, password=password)
+    
+#     if user is not None:
+#         login(request, user)
+#         return Response ({'status': 'good', 'message': 'user logged in'})
+#     else:
+#         return Response({'status': 'bad', 'message': 'failed auth'})
     
 
 def logoutUser(request):
@@ -53,13 +64,32 @@ def logoutUser(request):
     return Response({'status': 'good', 'message': 'user logged out'})
 
 # create note
-@login_required
+@csrf_exempt
+# @login_required
+@api_view(["POST"])
 def createNote(request):
     
     audio_file = request.FILES.get('audio_file')
+    print(f'AUDIO FILEEEE: {audio_file}')
     title = request.data.get('title')
+    local_path = "/Users/eliorocha/Development/WindowsDevelopment/flownotes/apis/audios"
+    try:
+        # response = requests.get(audio_file, stream=True)
+        # response.raise_for_status()  # Raise an exception for bad status codes (4xx or 5xx)
+        response = audio_file
+
+        with open(local_path, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                f.write(chunk)
+        print(f"Audio file downloaded successfully to {local_path}")
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error downloading audio file: {e}")
+
+    # tmp_path = convert_to_mp3(audio_file)
     text = assembly_ai_text(audio_file)
-    new_note = NoteSerializer(data = {'user': request.user, 'title': title, 'text': text}) 
+    user = User.objects.all()[0]
+    new_note = NoteSerializer(data = {'user': user, 'title': title, 'text': text}) 
     if new_note.is_valid():
         new_note.save()
     else:
@@ -109,3 +139,6 @@ def deleteNote(request):
 
     # return good status
     return Response({'status': 'good', 'message': f'deleted {title}'})
+
+def summarizeNote(request):
+    return

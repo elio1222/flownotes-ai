@@ -9,6 +9,5 @@ export default async function SubmitAudio(audioData: string) {
   await fetch("http://127.0.0.1:8000/create/note", {
     method: "POST",
     body: formData,
-    credentials: "include",
   });
 }
