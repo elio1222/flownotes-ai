@@ -55,7 +55,6 @@ const LoginPage = () => {
               form.onSubmit(async(values) => {
                 // authenticate user here and navigate on success
                 // Example: console.log(values);
-                // window.location.href = '/';
                 try {
                   const res = await fetch("http://127.0.0.1:8000/create/user/", {
                     method: "POST",
@@ -77,6 +76,7 @@ const LoginPage = () => {
                   console.error('error loggin in', err)
                 }
               })(event);
+              window.location.href = '/';
             }}
           >
             <Stack gap="md" w={300}>
